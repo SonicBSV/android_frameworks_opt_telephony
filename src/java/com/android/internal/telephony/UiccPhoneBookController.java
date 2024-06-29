@@ -139,36 +139,29 @@ public class UiccPhoneBookController extends IIccPhoneBook.Stub {
     @Override
     public int[] getAdnRecordsCapacityForSubscriber(int subId)
            throws android.os.RemoteException {
-        IccPhoneBookInterfaceManager iccPbkIntMgr =
-                             getIccPhoneBookInterfaceManager(subId);
+        IccPhoneBookInterfaceManager iccPbkIntMgr = getIccPhoneBookInterfaceManager(subId);
         if (iccPbkIntMgr != null) {
             return iccPbkIntMgr.getAdnRecordsCapacity();
         } else {
-            Rlog.e(TAG,"getAdnRecordsCapacity iccPbkIntMgr is" +
-                      " null for Subscription:"+subId);
+            Rlog.e(TAG,"getAdnRecordsCapacity iccPbkIntMgr is null for Subscription: " + subId);
             return null;
         }
     }
 
-    public boolean
-    updateAdnRecordsWithContentValuesInEfBySearch(int efid, ContentValues values,
-        String pin2) throws android.os.RemoteException {
-            return updateAdnRecordsWithContentValuesInEfBySearchUsingSubId(
+    public boolean updateAdnRecordsWithContentValuesInEfBySearch(int efid, ContentValues values,
+            String pin2) throws android.os.RemoteException {
+        return updateAdnRecordsWithContentValuesInEfBySearchUsingSubId(
                 getDefaultSubscription(), efid, values, pin2);
     }
 
-    public boolean
-    updateAdnRecordsWithContentValuesInEfBySearchUsingSubId(int subId, int efid,
-        ContentValues values, String pin2)
-        throws android.os.RemoteException {
-        IccPhoneBookInterfaceManager iccPbkIntMgr =
-                             getIccPhoneBookInterfaceManager(subId);
+    public boolean updateAdnRecordsWithContentValuesInEfBySearchUsingSubId(int subId, int efid,
+            ContentValues values, String pin2) throws android.os.RemoteException {
+        IccPhoneBookInterfaceManager iccPbkIntMgr = getIccPhoneBookInterfaceManager(subId);
         if (iccPbkIntMgr != null) {
-            return iccPbkIntMgr.updateAdnRecordsWithContentValuesInEfBySearch(
-                efid, values, pin2);
+            return iccPbkIntMgr.updateAdnRecordsWithContentValuesInEfBySearch(efid, values, pin2);
         } else {
             Rlog.e(TAG,"updateAdnRecordsWithContentValuesInEfBySearchUsingSubId " +
-                "iccPbkIntMgr is null for Subscription:"+subId);
+                "iccPbkIntMgr is null for Subscription: " + subId);
             return false;
         }
     }

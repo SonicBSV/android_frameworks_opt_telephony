@@ -100,10 +100,10 @@ import java.util.stream.Collectors;
  *
  */
 public class SubscriptionController extends ISub.Stub {
-    static final String LOG_TAG = "SubscriptionController";
-    static final protected boolean DBG = true;
-    static final protected boolean VDBG = Rlog.isLoggable(LOG_TAG, Log.VERBOSE);
-    static final boolean DBG_CACHE = false;
+    private static final String LOG_TAG = "SubscriptionController";
+    protected static final boolean DBG = true;
+    protected static final boolean VDBG = Rlog.isLoggable(LOG_TAG, Log.VERBOSE);
+    private static final boolean DBG_CACHE = false;
     private static final int DEPRECATED_SETTING = -1;
     private static final ParcelUuid INVALID_GROUP_UUID =
             ParcelUuid.fromString(CarrierConfigManager.REMOVE_GROUP_UUID_STRING);
@@ -2775,9 +2775,19 @@ public class SubscriptionController extends ISub.Stub {
      */
     @Override
     public String getSubscriptionProperty(int subId, String propKey, String callingPackage) {
-        if (!TelephonyPermissions.checkCallingOrSelfReadPhoneState(
-                mContext, subId, callingPackage, "getSubscriptionProperty")) {
-            return null;
+        switch (propKey) {
+            case SubscriptionManager.GROUP_UUID:
+                if (mContext.checkCallingOrSelfPermission(
+                        Manifest.permission.READ_PRIVILEGED_PHONE_STATE) != PERMISSION_GRANTED) {
+                    EventLog.writeEvent(0x534e4554, "213457638", Binder.getCallingUid());
+                    return null;
+                }
+                break;
+            default:
+                if (!TelephonyPermissions.checkCallingOrSelfReadPhoneState(mContext, subId,
+                        callingPackage, "getSubscriptionProperty")) {
+                    return null;
+                }
         }
 
         final long identity = Binder.clearCallingIdentity();

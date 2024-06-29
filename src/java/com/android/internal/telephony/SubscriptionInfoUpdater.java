@@ -405,7 +405,7 @@ public class SubscriptionInfoUpdater extends Handler {
         }
     }
 
-    protected void handleSimNotReady(int slotId) {
+    private void handleSimNotReady(int slotId) {
         logd("handleSimNotReady: slotId: " + slotId);
 
         IccCard iccCard = mPhone[slotId].getIccCard();
@@ -514,7 +514,6 @@ public class SubscriptionInfoUpdater extends Handler {
                             Rlog.e(LOG_TAG, "Settings Exception Reading Value At Index for "
                                     + "Settings.Global.PREFERRED_NETWORK_MODE");
                         }
-
                         Settings.Global.putInt(
                                 mPhone[slotId].getContext().getContentResolver(),
                                 Global.PREFERRED_NETWORK_MODE + subId,
@@ -601,7 +600,7 @@ public class SubscriptionInfoUpdater extends Handler {
         updateCarrierServices(slotId, IccCardConstants.INTENT_VALUE_ICC_CARD_IO_ERROR);
     }
 
-    synchronized protected void updateSubscriptionInfoByIccId(int slotIndex,
+    protected synchronized void updateSubscriptionInfoByIccId(int slotIndex,
             boolean updateEmbeddedSubs) {
         logd("updateSubscriptionInfoByIccId:+ Start");
         if (!SubscriptionManager.isValidSlotIndex(slotIndex)) {

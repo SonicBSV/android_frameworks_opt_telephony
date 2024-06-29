@@ -241,9 +241,10 @@ public class IccPhoneBookInterfaceManager {
         String[] newAnrArray = TextUtils.isEmpty(newAnr) ? null : getAnrStringArray(newAnr);
         efid = updateEfForIccType(efid);
 
-        if (DBG)
+        if (DBG) {
             logd("updateAdnRecordsWithContentValuesInEfBySearch: efid=" + efid + ", values = " +
-                values + ", pin2=" + pin2);
+                    values + ", pin2=" + pin2);
+        }
 
         checkThread();
         Request updateRequest = new Request();
@@ -422,7 +423,7 @@ public class IccPhoneBookInterfaceManager {
     /**
      * Get the capacity of ADN records
      *
-     * @return  int[6] array
+     * @return  int[10] array
      *            capacity[0]  is the max count of ADN
      *            capacity[1]  is the used count of ADN
      *            capacity[2]  is the max count of EMAIL

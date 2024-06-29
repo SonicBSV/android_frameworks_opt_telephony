@@ -205,10 +205,10 @@ public class IccProvider extends ContentProvider {
                         "Cannot insert into URL: " + url);
         }
 
-        String tag = initialValues.getAsString("tag");
-        String number = initialValues.getAsString("number");
-        String emails = initialValues.getAsString("emails");
-        String anrs = initialValues.getAsString("anrs");
+        String tag = initialValues.getAsString(STR_TAG);
+        String number = initialValues.getAsString(STR_NUMBER);
+        String emails = initialValues.getAsString(STR_EMAILS);
+        String anrs = initialValues.getAsString(STR_ANRS);
 
         ContentValues values = new ContentValues();
         values.put(STR_TAG,"");
@@ -346,14 +346,14 @@ public class IccProvider extends ContentProvider {
         }
 
         ContentValues values = new ContentValues();
-        values.put(STR_TAG,tag);
-        values.put(STR_NUMBER,number);
-        values.put(STR_EMAILS,emails);
-        values.put(STR_ANRS,anrs);
-        values.put(STR_NEW_TAG,"");
-        values.put(STR_NEW_NUMBER,"");
-        values.put(STR_NEW_EMAILS,"");
-        values.put(STR_NEW_ANRS,"");
+        values.put(STR_TAG, tag);
+        values.put(STR_NUMBER, number);
+        values.put(STR_EMAILS, emails);
+        values.put(STR_ANRS, anrs);
+        values.put(STR_NEW_TAG, "");
+        values.put(STR_NEW_NUMBER, "");
+        values.put(STR_NEW_EMAILS, "");
+        values.put(STR_NEW_ANRS, "");
         if ((efType == FDN) && TextUtils.isEmpty(pin2)) {
             return 0;
         }
